@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Dispatch_app.props" />
+</Project>
