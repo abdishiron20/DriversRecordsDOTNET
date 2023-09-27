@@ -13,7 +13,7 @@ namespace Dispatch_app.Models
         }
         public virtual DbSet<Drivers> Drivers { get; set; }
         public virtual DbSet<Contacts> Contacts { get; set; }
-        public virtual DbSet<Tractor> Tractors { get; set; }
+        public virtual DbSet<Tractors> Tractors { get; set; }
 
         public virtual DbSet<test> test { get; set; }
     }

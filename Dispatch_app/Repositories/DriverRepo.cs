@@ -1,4 +1,5 @@
 ﻿using Dispatch_app.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dispatch_app.Repositories
@@ -12,13 +13,13 @@ namespace Dispatch_app.Repositories
             _dbContext = dbContext;
         }
 
-        public DriverResponse GetDriver(int id)
+        public async Task<DriverResponse> GetDriver(int id)
         {
 
 
-            Drivers driverResult = _dbContext.Drivers.Where(x => x.ID == id).FirstOrDefault();
+            Drivers driverResult = await _dbContext.Drivers.Where(x => x.ID == id).FirstOrDefaultAsync();
 
-            List<Contacts> contacts = _dbContext.Contacts.Where(x => x.DriverId == driverResult.ID).ToList();
+            List<Contacts> contacts = await _dbContext.Contacts.Where(x => x.DriverId == driverResult.ID).ToListAsync();
 
 
 
@@ -46,7 +47,7 @@ namespace Dispatch_app.Repositories
                 response.Contacts.Add(contactResponse);
             }
 
-            return response;
+            return  response;
         }
 
         public List<DriverResponse> GetDrivers()
@@ -61,6 +62,7 @@ namespace Dispatch_app.Repositories
             foreach (Drivers driver in driverResult)
             {
                 var contacts = _dbContext.Contacts.Where(x => x.DriverId == driver.ID).ToList();
+
                 DriverResponse driverResponse = new DriverResponse();
 
 
@@ -90,7 +92,7 @@ namespace Dispatch_app.Repositories
             return driverResponses;
         }
 
-        public string Create(DriverRequest request)
+        public async Task<string> Create(DriverRequest request)
         {
 
             string error = string.Empty;
@@ -100,7 +102,11 @@ namespace Dispatch_app.Repositories
             }
             Drivers driverObj = new Drivers();
 
-            driverObj.FirstName = request.FirstName;
+            driverObj.FirstName = request.FirstName;   
+
+
+
+
             driverObj.LastName = request.LastName;
             driverObj.Email = request.Email;
             driverObj.Phone = request.Phone;
@@ -118,7 +124,7 @@ namespace Dispatch_app.Repositories
         }
 
 
-       public string Update(DriverRequest request)
+       public async Task<string> Update(DriverRequest request)
         {
             var driver = _dbContext.Drivers.Where(x=>x.ID == request.ID).FirstOrDefault(); //
 
@@ -155,11 +161,11 @@ namespace Dispatch_app.Repositories
             //why is there an error Contacts ? It already exists (-come back to this later_)
 //            foreach (var updatedContact in request.Contacts)    
 //            {
-//                var existingContact = _dbContext.Contacts.Where(x=>x.ID == updatedContact.ID).FirstOrDefault();
+//                var existingContact = _dbContext.Contacts.Where(x=>x.id == updatedContact.id).FirstOrDefault();
 
 //                if (existingContact != null) { 
                
-//                    //existingContact.ID = updatedContact
+//                    //existingContact.id = updatedContact
 //                    //existingContact.FirstName = updatedContact.FirstName;    
 //.                   existingContact.LastName = updatedContact.LastName;
 //                    existingContact.Phone = updatedContact.Phone;
@@ -175,14 +181,14 @@ namespace Dispatch_app.Repositories
             // Add new contacts
             //foreach (var newContact in request.Contacts)
             //{
-            //   Contacts.ReferenceEquals(newContact.ID, request.ID); //testing this
+            //   Contacts.ReferenceEquals(newContact.id, request.id); //testing this
             //}
 
             
             return "your data has been updated successfully!";
         }
 
-        public string Delete(int id)
+        public async Task<string> Delete(int id)
         {
             var data = _dbContext.Drivers.Where(x => x.ID == id).FirstOrDefault();
 
@@ -198,7 +204,7 @@ namespace Dispatch_app.Repositories
         }
 
 
-        private string AddContact(int driverId, List<Contacts> contacts)
+        private async Task<string> AddContact(int driverId, List<Contacts> contacts)
         {
             if (contacts.Count > 0)
             {

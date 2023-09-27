@@ -5,12 +5,12 @@ namespace Dispatch_app.Repositories
 {
     public interface IDriverRepo
     {
-        public DriverResponse GetDriver(int id);
+        public Task<DriverResponse> GetDriver(int id);
         public List<DriverResponse> GetDrivers();
-        public string Create(DriverRequest request);
+        public Task<string> Create(DriverRequest request);
 
-        public string Update(DriverRequest request );  //this should be coming as DriverRequest ? But why <?>
+        public Task<string> Update(DriverRequest request );  //this should be coming as DriverRequest ? But why <?>
 
-        public string Delete(int id);
+        public Task<string> Delete(int id);
     }
 }

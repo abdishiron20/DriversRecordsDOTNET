@@ -11,6 +11,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")))
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IDriverRepo, DriverRepo>();
+builder.Services.AddScoped<ITractorRepo, TractorRepo>();
 
 var app = builder.Build();
 

@@ -12,5 +12,7 @@ namespace Dispatch_app.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public int CarrierId { get; set; }
+
+
     }
 }

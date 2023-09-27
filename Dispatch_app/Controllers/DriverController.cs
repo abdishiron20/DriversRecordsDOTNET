@@ -15,17 +15,21 @@ namespace Dispatch_app.Controllers
             _IdriverRepo = IdriverRepo;
         }
         ////CRUD
-
+        
 
 
         [HttpGet]
        // [Route("GetDriver")]
-        public DriverResponse GetDriver(int id)
+        public async Task<IActionResult> GetDriver(int id)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            var driverResponse = _IdriverRepo.GetDriver(id); 
+            var driverResponse =  await _IdriverRepo.GetDriver(id); 
 
-            return driverResponse;
+            return Ok(driverResponse);
         }
 
 
@@ -43,28 +47,31 @@ namespace Dispatch_app.Controllers
 
         [HttpPost]
         // [Route("Create")]
-        public string Create([FromBody] DriverRequest request)
+        public async Task<IActionResult> Create([FromBody] DriverRequest request)
         {
-
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var response = _IdriverRepo.Create(request);
-            return response;
+            return Ok(response);
         }
 
         [HttpPut]
         // [Route("Update")]
-        public string Update([FromBody] DriverRequest request)
+        public async Task<IActionResult> Update([FromBody] DriverRequest request)
         {
             var response = _IdriverRepo.Update(request);
-            return response;
+            return Ok(response);
         }
 
 
         [HttpDelete]
         [Route("Delete")]
-        public string Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var response = _IdriverRepo.Delete(id);
-            return response;
+            return Ok(response);
         }
 
 
