@@ -59,6 +59,8 @@ namespace Dispatch_app.Repositories
 
             List<Drivers> driverResult = _dbContext.Drivers.ToList();
 
+
+
             foreach (Drivers driver in driverResult)
             {
                 var contacts = _dbContext.Contacts.Where(x => x.DriverId == driver.ID).ToList();

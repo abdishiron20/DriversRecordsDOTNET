@@ -34,13 +34,15 @@ namespace Dispatch_app.Repositories
             return response;
         }
 
-        public List<TractorResponse> GetTractors()
+
+
+        public async Task<List<TractorResponse>> GetTractors()
         {
 
             List<TractorResponse> tractorResponses = new List<TractorResponse>();
            
  
-            List<Tractors> tractorResult = _dbContext.Tractors.ToList();
+            var tractorResult = await _dbContext.Tractors.ToListAsync();
             foreach (Tractors tractor in tractorResult)
             {
                 TractorResponse tractorResponse = new TractorResponse();
@@ -63,7 +65,7 @@ namespace Dispatch_app.Repositories
             string error = string.Empty;
             if (string.IsNullOrEmpty(request.Make))
             {
-                return "Sorry FirstName can not be null";
+                return "Sorry tractor make can not be null";
             }
             Tractors tractorsObj = new Tractors();
 
