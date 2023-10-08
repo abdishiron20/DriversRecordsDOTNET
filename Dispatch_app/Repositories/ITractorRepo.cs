@@ -6,7 +6,7 @@ namespace Dispatch_app.Repositories
     {
         //changes must be made here 
         public Task<TractorResponse> GetTractor(int id);
-        public List<TractorResponse> GetTractors();
+        public Task<List<TractorResponse>> GetTractors();
         public Task<string> Create(TractorRequest request);
 
         public Task<string> Update(TractorRequest request);  

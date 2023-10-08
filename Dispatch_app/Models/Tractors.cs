@@ -5,7 +5,7 @@ namespace Dispatch_app.Models
 {
     public class Tractors
     {
-        [Key]
+        //[Key]
         public int id { get; set; }
 
        // [Required(ErrorMessage = "Make is required.")]

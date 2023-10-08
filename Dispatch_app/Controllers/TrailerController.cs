@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispatch_app.Controllers
 {
-    public class TractorController : Controller
+    public class TrailerController : Controller
     {
         //public DriverController(IDriverRepo IdriverRepo)
         //{
@@ -13,58 +13,60 @@ namespace Dispatch_app.Controllers
         //}
 
 
-        ITractorRepo _ItractorRepo;
 
-        public TractorController(ITractorRepo ItractorRepo)
+        ITrailerRepo _TrailerRepo;
+
+
+        public TrailerController(ITrailerRepo ITrailerRepo)
         {
-            _ItractorRepo = ItractorRepo;
+            _TrailerRepo = ITrailerRepo;
         }
 
 
         [HttpGet]
         // [Route("GetDriver")]
-        public async Task<IActionResult> GetTractor(int id)
+        public async Task<IActionResult> GetTrailer(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var tractorResponse = await _ItractorRepo.GetTractor(id);
+            var trailerResponse = await _TrailerRepo.GetTrailer(id);
 
-            return Ok(tractorResponse);
+            return Ok(trailerResponse);
         }
 
 
         [HttpGet]
-        //  [Route("GetDrivers")]
-        public async Task<List<TractorResponse>> GetTractors()
+  
+        public List<TrailerResponse> GetTrailers()
 
         {
-            var tractorResponses = await _ItractorRepo.GetTractors();
+            var trailerResponses = _TrailerRepo.GetTrailers();
 
-            return tractorResponses;
+            return trailerResponses;
 
         }
 
 
         [HttpPost]
-        // [Route("Create")]
-        public async Task<IActionResult> Create([FromBody] TractorRequest request)
+       
+        public async Task<IActionResult> Create([FromBody] TrailerRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var response = await _ItractorRepo.Create(request);
+            var response = await _TrailerRepo.Create(request);
             return Ok(response);
         }
 
         [HttpPut]
         // [Route("Update")]
-        public async Task<IActionResult> Update([FromBody] TractorRequest request)
+        public async Task<IActionResult> Update([FromBody] TrailerRequest request)
         {
-            var response = _ItractorRepo.Update(request);
+            var response = _TrailerRepo.Update(request);
             return Ok(response);
         }
 
@@ -73,9 +75,9 @@ namespace Dispatch_app.Controllers
         [Route("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = _ItractorRepo.Delete(id);
+            var response = _TrailerRepo.Delete(id);
             return Ok(response);
         }
     }
 
-    }
+}
